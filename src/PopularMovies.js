@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
+import Movie from './Movie.js'
 
 class PopularMovies extends Component {
   render() {
     return (
       <ul>
-        <h2>Forrest Gump</h2>
-        <p>Liked By:</p>
-        <ul>
-          <li>Nicholas Lain</li>
-        </ul>
+        <li><Movie /></li>
       </ul>   
       )
   }
