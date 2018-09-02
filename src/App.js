@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import PopularMovies from './PopularMovies.js'
 
 /*
 Display a list of movies where each movie contains a list of users that favorited it.
@@ -99,6 +98,37 @@ const movies = {
 };
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.usersByMovie = {}
+    this.tmpUsersMovies = {}
+
+    profiles.forEach(profile => {
+      const movieID = profile.favoriteMovieID;
+      console.log(`movieid: ${movieID}`)
+
+      Object.is(this.tmpUsersMovies[movieID], undefined) ?
+      (
+        console.log(`its undefined`),
+        this.tmpUsersMovies[movieID] = [profile.userID]
+        
+      ) : (
+        console.log(` Its ${this.usersByMovie[movieID]}`),
+        this.tmpUsersMovies[movieID].push(profile.userID)
+      )
+
+      if (this.usersByMovie[movieID]) {
+        console.log(`if#1: ${this.usersByMovie[movieID]}`)
+        this.usersByMovie[movieID].push(profile.userID);
+      } else {
+        console.log(`else#1: ${this.usersByMovie[movieID]} = ${[profile.userID]}`)
+        this.usersByMovie[movieID] = [profile.userID];
+      }
+    });
+    console.log(this.usersByMovie)
+    console.log(this.tmpUsersMovies)
+  }
+
   render() {
     return (
       <div className="App">
@@ -107,7 +137,15 @@ class App extends Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <h2>How Popular is Your Favorite Movie?</h2>
-        <PopularMovies profiles={profiles} users={users} moview={movies} />
+          <ul>
+            {Object.keys(movies).map(key => {
+              const userIDs = this.usersByMovie[movies[key].id]
+
+              return (
+                <li key={movies[key].id}><h2>{movies[key].name}</h2></li>
+              )
+            })}
+          </ul>
       </div>
     );
   }

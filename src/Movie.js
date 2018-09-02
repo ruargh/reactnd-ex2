@@ -4,7 +4,7 @@ class Movie extends Component {
   render() {
     return(
       <div>
-        <h2>Forrest Gump</h2>
+        <h2>{this.props.movieName}</h2>
         <p>Liked By:</p>
         <ul>
           <li>Nicholas Lain</li>
